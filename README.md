@@ -43,8 +43,8 @@ Ikuti langkah berikut secara berurutan dari direktori utama proyek.
 ### Langkah 1: Clone Repository
 
 ```bash
-git clone <URL_REPOSITORY_ANDA>
-cd Songgest
+git clone https://github.com/Rayalifi/Songguest.git
+cd Songguest
 ```
 
 ### Langkah 2: Install Dependencies
