@@ -1,0 +1,60 @@
+:root {
+  /* Core Color Palette: Studio Console Aesthetic */
+  --color-bg-canvas: #0e1015;
+  --color-bg-surface: #181c24;
+  --color-bg-surface-elevated: #202632;
+  --color-bg-surface-active: #2b3342;
+  
+  --color-border-subtle: #272e3b;
+  --color-border-strong: #3b4659;
+  
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #818997;
+  
+  /* One Deliberate Accent: Vintage Audio Signal Amber */
+  --color-accent: #f39c12;
+  --color-accent-hover: #e67e22;
+  --color-accent-contrast: #0e1015;
+  
+  /* Status Indicators */
+  --color-signal-correct: #2ecc71;
+  --color-signal-incorrect: #e74c3c;
+  --color-signal-partial: #f1c40f;
+
+  /* Typography */
+  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+  --font-size-sm: clamp(0.8125rem, 0.78rem + 0.25vw, 0.875rem);
+  --font-size-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --font-size-md: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  --font-size-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --font-size-xl: clamp(1.625rem, 1.45rem + 0.85vw, 2.125rem);
+  --font-size-hero: clamp(2.125rem, 1.85rem + 1.4vw, 3rem);
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Elevation and Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-deck: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  /* Focus Indicator (WCAG 3:1 compliant against all dark surfaces) */
+  --focus-ring: 2px solid #f39c12;
+  --focus-ring-offset: 2px;
+}

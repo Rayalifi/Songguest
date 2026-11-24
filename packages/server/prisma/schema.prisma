@@ -1,0 +1,121 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Song {
+  id                String        @id @default(cuid())
+  title             String
+  artist            String
+  album             String?
+  releaseYear       Int
+  genre             String
+  subgenres         String        @default("")
+  language          String        @default("en")
+  popularityScore   Int
+  audioFixturePath  String?
+  previewUrl        String?
+  previewProvider   String?
+  previewExpiresAt  DateTime?
+  externalUrl       String?
+  albumArtUrl       String?
+  previewOffsetSec  Float         @default(0.0)
+  provider          String        @default("local-fixtures")
+  providerSongId    String?
+  spotifyTrackId    String?
+  spotifyPlaylistId String?
+  createdAt         DateTime      @default(now())
+
+  tickets           RoundTicket[]
+
+  @@index([genre, popularityScore, releaseYear])
+  @@index([artist])
+  @@index([language])
+  @@index([spotifyPlaylistId])
+}
+
+model SpotifyAuthSession {
+  id            String    @id @default(cuid())
+  state         String    @unique
+  accessToken   String?
+  refreshToken  String?
+  expiresAt     DateTime?
+  spotifyUserId String?
+  displayName   String?
+  scope         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([state])
+}
+
+model GameSession {
+  id           String        @id @default(cuid())
+  sourceType   String        @default("QUICK_PLAY") // QUICK_PLAY | SPOTIFY_PLAYLIST
+  playlistId   String?
+  playlistName String?
+  mode         String        @default("quick_play")
+  difficulty   String        @default("medium")
+  guessDuration Float        @default(0.1)
+  genre        String?
+  artist       String?
+  language     String?
+  yearMin      Int?
+  yearMax      Int?
+  status       String        @default("active")
+  totalScore   Int           @default(0)
+  roundsCount  Int           @default(5)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  tickets      RoundTicket[]
+  history      GameHistory?
+}
+
+model RoundTicket {
+  id            String      @id @default(cuid())
+  ticketId      String      @unique
+  sessionId     String
+  songId        String
+  roundNumber   Int
+  stageIndex    Int         @default(0) // 0: 0.1s, 1: 0.5s, 2: 2.0s, 3: 8.0s, 4: 15.0s
+  durationSec   Float       @default(0.1)
+  expiresAt     DateTime
+  status        String      @default("issued")
+  usedAt        DateTime?
+  pointsAwarded Int         @default(0)
+  createdAt     DateTime    @default(now())
+
+  session       GameSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  song          Song        @relation(fields: [songId], references: [id])
+
+  @@unique([sessionId, roundNumber])
+  @@index([ticketId])
+  @@index([sessionId])
+}
+
+model GameHistory {
+  id             String      @id @default(cuid())
+  sessionId      String      @unique
+  sourceType     String      @default("QUICK_PLAY")
+  playlistName   String?
+  mode           String      @default("quick_play")
+  difficulty     String
+  guessDuration  Float       @default(0.1)
+  genre          String?
+  finalScore     Int
+  roundsPlayed   Int
+  correctAnswers Int
+  accuracy       Float
+  highestStreak  Int
+  completedAt    DateTime    @default(now())
+
+  session        GameSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([completedAt])
+}
+
